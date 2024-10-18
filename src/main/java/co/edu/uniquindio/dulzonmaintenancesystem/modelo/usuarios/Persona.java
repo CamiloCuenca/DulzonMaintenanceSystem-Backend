@@ -1,16 +1,22 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.modelo.usuarios;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 public class Persona {
+    @Id
+    private String cedula;
     private String nombre;
-    private String userName;
-    private String password;
-    private String email;
+    private String Apellido;
     private String telefono;
+    private String direccion;
+    private LocalDateTime fechaNacimiento;
 }
