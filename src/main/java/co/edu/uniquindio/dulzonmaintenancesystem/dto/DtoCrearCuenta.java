@@ -1,5 +1,6 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.dto;
 
+import co.edu.uniquindio.dulzonmaintenancesystem.Enums.EstadoCuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.Rol;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +17,10 @@ public record DtoCrearCuenta(
         String password,
 
         @NotBlank @NotBlank(message = "El rol no puede estar vacio")
-        Rol rol
+        Rol rol,
+
+        @NotBlank @NotBlank(message = "El rol no puede estar vacio")
+        EstadoCuenta estadoCuenta
 ) {
+
 }
