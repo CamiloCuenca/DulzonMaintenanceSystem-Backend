@@ -25,14 +25,14 @@ public class CuentaTest {
     @Test
     public void crearCuenta() {
         DtoCrearCuenta nuevaCuentaDTO = new DtoCrearCuenta(
-                "brandonlo@gmail.com",
+                "camiloAas@gmail.com",
                 "123456",
-                Rol.GERENTE
+                Rol.OPERADOR
         );
         DtoCrearPersona nuevaPersonaDTO = new DtoCrearPersona(
-                "1001277430",
-                "brandon",
-                "acevedo",
+                "10012774330",
+                "Camio",
+                "Sepulveda",
                 "3153032",
                 "mariacristina",
                 LocalDateTime.of(2000, 8, 17, 18, 0)
