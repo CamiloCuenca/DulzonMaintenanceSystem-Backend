@@ -22,5 +22,6 @@ public class Mantenimiento {
     private LocalDateTime fechaFin;
     private List<Observacion> observaciones;
     private EstadoMantenimiento estadoMantenimiento;
+    private List<ActividadMantenimiento> actividadesPlanificadas;
 
 }
