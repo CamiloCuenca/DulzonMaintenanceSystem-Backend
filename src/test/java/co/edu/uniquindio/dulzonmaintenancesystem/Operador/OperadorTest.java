@@ -71,8 +71,4 @@ public class OperadorTest {
         String idCartaGannt = "6714b40d5fbf905a1f927f6b";
         servicioOperadorImp.eliminarCartaGantt(idCartaGannt);
     }
-
-
-
-
 }
