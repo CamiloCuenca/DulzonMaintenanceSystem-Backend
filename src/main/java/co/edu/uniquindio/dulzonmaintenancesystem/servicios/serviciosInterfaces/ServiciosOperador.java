@@ -15,9 +15,13 @@ public interface ServiciosOperador {
 
     String crearCartaGantt(DtoCrearCartaGantt cartaGantt);
 
+    String editarCartaGantt(String idCartaGantt, DtoCrearCartaGantt cartaGantt) throws Exception;
+
     void programarMantenimiento(MatenimientoDTO mantenimientoDto) throws MaquinaNoEspecificadaExepcion;
 
     void registarActividadmantenimiento(String idMantenimiento,ActividadDTO actividadDTO);
+
+    String eliminarCartaGantt(String idCartaGantt)throws  Exception;
 
 
 
