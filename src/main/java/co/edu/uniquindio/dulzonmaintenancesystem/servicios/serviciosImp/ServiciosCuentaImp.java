@@ -1,9 +1,8 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosImp;
 
+import co.edu.uniquindio.dulzonmaintenancesystem.Configuracion.JWTUtils;
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.EstadoCuenta;
-import co.edu.uniquindio.dulzonmaintenancesystem.Exception.Cuenta.CedulaAlreadyExistsException;
-import co.edu.uniquindio.dulzonmaintenancesystem.Exception.Cuenta.EmailAlreadyExistsException;
-import co.edu.uniquindio.dulzonmaintenancesystem.Exception.Cuenta.InvalidPasswordException;
+import co.edu.uniquindio.dulzonmaintenancesystem.Exception.Cuenta.*;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.*;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.usuarios.Cuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.usuarios.Persona;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -26,6 +26,7 @@ public class ServiciosCuentaImp implements ServiciosCuenta {
 
     private final RepositorioCuenta repositorioCuenta;
     private final PasswordEncoder passwordEncoder;
+    private final JWTUtils jwtUtils;
 
     private boolean existsEmail(String email) {
         return repositorioCuenta.findByEmail(email).isPresent();
@@ -97,11 +98,49 @@ public class ServiciosCuentaImp implements ServiciosCuenta {
         return cuentaActualizada.getIdCuenta();
     }
 
-    private String encryptPassword(String password) {
-        return passwordEncoder.encode(password);
+    @Override
+    public TokenDTO iniciarSesion(DtoLogin login) throws Exception {
+        // Buscar la cuenta en la base de datos utilizando el email proporcionado en el LoginDTO.
+        Optional<Cuenta> optionalCuenta = repositorioCuenta.findByEmail(login.email());
+
+        // Si no se encuentra una cuenta asociada al email, lanzar una excepción personalizada.
+        if (optionalCuenta.isEmpty()) {
+            throw new EmailNotFoundException("No se encontro el email");
+        }
+
+        // Obtener la cuenta de la Optional. Aquí se asume que la cuenta está presente, ya que se verificó antes.
+        Cuenta cuenta = optionalCuenta.get();
+
+        // Verificar el estado de la cuenta. Si no está activa, lanzar una excepción personalizada.
+        if (!cuenta.getEstadoCuenta().equals(EstadoCuenta.ACTIVA)) {
+            throw new ActiveAccountException("La cuenta no se encuentra Activada. Por favor, actívala para ingresar!");
+        }
+
+        // Verificar si la contraseña proporcionada coincide con la contraseña almacenada utilizando el passwordEncoder.
+        if (!passwordEncoder.matches(login.password(), cuenta.getPassword())) {
+            throw new InvalidPasswordException("la contraseña es incorrecta"); // Lanzar excepción si la contraseña es incorrecta.
+        }
+
+        // Construir los claims necesarios para generar el token JWT, pasando la cuenta encontrada.
+        Map<String, Object> map = construirClaims(cuenta);
+
+        // Generar y devolver un nuevo TokenDTO que contiene el token JWT generado.
+        return new TokenDTO(jwtUtils.generarToken(cuenta.getEmail(), map));
+
+    }
+
+    private Map<String, Object> construirClaims(Cuenta cuenta) {
+        return Map.of(
+                "rol", cuenta.getRol(),
+                "nombre", cuenta.getPersona().getNombre(),
+                "id", cuenta.getIdCuenta()
+        );
     }
 
 
+    private String encryptPassword(String password) {
+        return passwordEncoder.encode(password);
+    }
 
 
 }
