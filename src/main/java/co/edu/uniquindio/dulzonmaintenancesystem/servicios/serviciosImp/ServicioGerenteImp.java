@@ -22,7 +22,7 @@ public class ServicioGerenteImp implements ServiciosGerente {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void visualizarMAntenimiento(String idMantenimiento) {
+    public void visualizarMantenimiento(String idMantenimiento) {
 
     }
 

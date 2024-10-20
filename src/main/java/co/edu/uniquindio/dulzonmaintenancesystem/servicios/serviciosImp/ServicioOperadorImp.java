@@ -3,6 +3,11 @@ package co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosImp;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.*;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.EmpresaExterna.Cuadrilla;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.EmpresaExterna.Trabajador;
+
+import co.edu.uniquindio.dulzonmaintenancesystem.Exception.Mantenimiento.MaquinaNoEspecificadaExepcion;
+import co.edu.uniquindio.dulzonmaintenancesystem.dto.ActividadDTO;
+import co.edu.uniquindio.dulzonmaintenancesystem.dto.MaquinaDTO;
+import co.edu.uniquindio.dulzonmaintenancesystem.dto.MatenimientoDTO;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.ActividadMantenimiento;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.CartaGantt;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.Mantenimiento;
@@ -65,10 +70,10 @@ public class ServicioOperadorImp implements ServiciosOperador {
      * @param mantenimientoDto
      */
     @Override
-    public void programarMantenimiento(MatenimientoDTO mantenimientoDto) throws Exception {
+    public void programarMantenimiento(MatenimientoDTO mantenimientoDto) throws MaquinaNoEspecificadaExepcion {
         // Validar si la máquina existe
         if (!repositorioMaquina.existsById(mantenimientoDto.idMaquina())) {
-            throw new IllegalArgumentException("La máquina especificada no existe.");
+            throw new MaquinaNoEspecificadaExepcion("La máquina especificada no existe.");
         }
 
         // Verificar que la fecha de inicio sea anterior a la fecha de fin
