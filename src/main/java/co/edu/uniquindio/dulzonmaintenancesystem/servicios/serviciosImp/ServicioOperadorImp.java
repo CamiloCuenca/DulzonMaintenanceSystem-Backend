@@ -122,17 +122,9 @@ public class ServicioOperadorImp implements ServiciosOperador {
         nuevaActividad.setFechaInicioPlanificada(actividadDTO.fechaInicioPlanificada());
         nuevaActividad.setFechaFinPlanificada(actividadDTO.fechaFinPlanificada());
 
-        // Agregar la nueva actividad a la lista de actividades planificadas
-        if (mantenimiento.getActividadesPlanificadas() == null) {
-            // Si la lista no está inicializada, crear una nueva lista
-            mantenimiento.setActividadesPlanificadas(new ArrayList<>());
-        }
-
-        // Añadir la nueva actividad
-        mantenimiento.getActividadesPlanificadas().add(nuevaActividad);
 
         // Guardar el mantenimiento actualizado en la base de datos
-        repositorioMantenimiento.save(mantenimiento);
+        //repositorioCartaGantt.save(mantenimiento);
     }
 
 

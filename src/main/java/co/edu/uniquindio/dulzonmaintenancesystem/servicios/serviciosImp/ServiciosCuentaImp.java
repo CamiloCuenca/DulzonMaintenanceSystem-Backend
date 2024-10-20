@@ -1,6 +1,6 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosImp;
 
-import co.edu.uniquindio.dulzonmaintenancesystem.configuracion.JWTUtils;
+import co.edu.uniquindio.dulzonmaintenancesystem.Configuracion.JWTUtils;
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.EstadoCuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.Exception.Cuenta.*;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.*;
@@ -8,8 +8,6 @@ import co.edu.uniquindio.dulzonmaintenancesystem.modelo.usuarios.Cuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.usuarios.Persona;
 import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosUsuarios.RepositorioCuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosInterfaces.ServiciosCuenta;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

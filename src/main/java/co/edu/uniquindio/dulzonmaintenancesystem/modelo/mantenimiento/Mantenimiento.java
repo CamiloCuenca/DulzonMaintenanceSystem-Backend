@@ -24,11 +24,10 @@ public class Mantenimiento {
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
     private LocalDateTime fechaInicioReal; // puede ser null
-    private LocalDateTime fechaFinReal;
+    private LocalDateTime fechaFinReal;    // puede ser null
     private List<Observacion> observaciones;
     private EstadoMantenimiento estadoMantenimiento;
-    private List<ActividadMantenimiento> actividadesPlanificadas;
-    private String idCuadrilla;
+    private String idCartaGantt;
 
 
 }

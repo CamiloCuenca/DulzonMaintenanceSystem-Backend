@@ -1,4 +1,4 @@
-package co.edu.uniquindio.dulzonmaintenancesystem.configuracion;
+package co.edu.uniquindio.dulzonmaintenancesystem.Configuracion;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
