@@ -8,6 +8,8 @@ import co.edu.uniquindio.dulzonmaintenancesystem.modelo.usuarios.Cuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.usuarios.Persona;
 import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosUsuarios.RepositorioCuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosInterfaces.ServiciosCuenta;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -126,6 +128,27 @@ public class ServiciosCuentaImp implements ServiciosCuenta {
 
         // Generar y devolver un nuevo TokenDTO que contiene el token JWT generado.
         return new TokenDTO(jwtUtils.generarToken(cuenta.getEmail(), map));
+
+    }
+
+    @Override
+    public DtoObtenerInformacionCuenta obtenerInformacionCuenta(String idCuenta) throws AccountNotFoundException {
+        Optional<Cuenta> cuentaOptional = repositorioCuenta.findById(idCuenta);
+        if (cuentaOptional.isEmpty()) {
+            throw new AccountNotFoundException("No se encontro la cuenta");
+        }
+
+        Cuenta cuenta = cuentaOptional.get();
+
+        return new DtoObtenerInformacionCuenta(
+                cuenta.getPersona().getCedula(),
+                cuenta.getPersona().getNombre(),
+                cuenta.getPersona().getApellido(),
+                cuenta.getPersona().getTelefono(),
+                cuenta.getPersona().getDireccion(),
+                cuenta.getPersona().getFechaNacimiento(),
+                cuenta.getEmail()
+        );
 
     }
 

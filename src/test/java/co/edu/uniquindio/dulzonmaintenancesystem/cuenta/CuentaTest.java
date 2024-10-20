@@ -20,8 +20,6 @@ public class CuentaTest {
     private ServiciosCuentaImp serviciosCuentaImp;
 
 
-
-
     @Test
     public void crearCuenta() {
         DtoCrearCuenta nuevaCuentaDTO = new DtoCrearCuenta(
@@ -29,7 +27,7 @@ public class CuentaTest {
                 "123456",
                 Rol.GERENTE,
                 EstadoCuenta.INACTIVA
-               
+
         );
         DtoCrearPersona nuevaPersonaDTO = new DtoCrearPersona(
                 "10012774330",
@@ -40,7 +38,7 @@ public class CuentaTest {
                 LocalDateTime.of(2000, 8, 17, 18, 0)
         );
         assertDoesNotThrow(() -> {
-            String id = serviciosCuentaImp.crearCuenta(nuevaCuentaDTO,nuevaPersonaDTO);
+            String id = serviciosCuentaImp.crearCuenta(nuevaCuentaDTO, nuevaPersonaDTO);
             // Verifica que el id de la cuenta creada no sea nulo
             assertNotNull(id);
         });
@@ -48,7 +46,7 @@ public class CuentaTest {
 
 
     @Test
-    public void editarCuenta(){
+    public void editarCuenta() {
         String idCuenta = "6712c2e14b3f93460e9efe69";
         DtoEditarCuenta dtoEditarCuenta = new DtoEditarCuenta(
                 "3153034",
@@ -59,12 +57,12 @@ public class CuentaTest {
 
         // Se espera que no se lance ninguna excepción al editar la cuenta
         assertDoesNotThrow(() -> {
-            serviciosCuentaImp.editarCuenta(dtoEditarCuenta,idCuenta); // Actualiza la cuenta
+            serviciosCuentaImp.editarCuenta(dtoEditarCuenta, idCuenta); // Actualiza la cuenta
         });
     }
 
     @Test
-    public void iniciarSesion(){
+    public void iniciarSesion() {
         String email = "camiloAas@gmail.com";
         String password = "123456";  // Contraseña válida
 
@@ -74,6 +72,14 @@ public class CuentaTest {
             TokenDTO tokenDTO = serviciosCuentaImp.iniciarSesion(createLoginDTO);
             // Imprimir el token en la consola
             System.out.println("Token generado: " + tokenDTO.token());
+        });
+    }
+
+    @Test
+    public void obtenerInformacionCuenta() {
+        String idCuenta = "67148ff7a61e465537510399";
+        assertDoesNotThrow(() -> {
+            System.out.println(serviciosCuentaImp.obtenerInformacionCuenta(idCuenta));
         });
     }
 

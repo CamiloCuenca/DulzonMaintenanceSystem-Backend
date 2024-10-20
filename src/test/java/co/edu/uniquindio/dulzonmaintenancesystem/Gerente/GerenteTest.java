@@ -26,12 +26,12 @@ public class GerenteTest {
                 "Sanchez"
         );
         assertDoesNotThrow(() -> {
-            serviciosGerente.editarCuentaAdmin(dtoEditarCuentaAdmi,idCuenta); // Actualiza la cuenta
+            serviciosGerente.editarCuentaAdmin(dtoEditarCuentaAdmi, idCuenta); // Actualiza la cuenta
         });
     }
 
     @Test
-    public void eliminarCuentaAdmi(){
+    public void eliminarCuentaAdmi() {
         String idCuenta = "6713e827bf032a4d88bffc6b";
         assertDoesNotThrow(() -> {
             serviciosGerente.eliminarCuentaAdmi(idCuenta);

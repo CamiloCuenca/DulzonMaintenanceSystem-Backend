@@ -1,14 +1,15 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.modelo.EmpresaExterna;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 public class Cuadrilla {
 
     private String idCuadrilla;
