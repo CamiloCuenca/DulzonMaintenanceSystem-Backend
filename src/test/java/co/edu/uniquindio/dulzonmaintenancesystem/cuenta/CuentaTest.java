@@ -2,9 +2,7 @@ package co.edu.uniquindio.dulzonmaintenancesystem.cuenta;
 
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.EstadoCuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.Rol;
-import co.edu.uniquindio.dulzonmaintenancesystem.dto.DtoCrearCuenta;
-import co.edu.uniquindio.dulzonmaintenancesystem.dto.DtoCrearPersona;
-import co.edu.uniquindio.dulzonmaintenancesystem.dto.DtoEditarCuenta;
+import co.edu.uniquindio.dulzonmaintenancesystem.dto.*;
 import co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosImp.ServiciosCuentaImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +63,18 @@ public class CuentaTest {
         });
     }
 
+    @Test
+    public void iniciarSesion(){
+        String email = "camiloAas@gmail.com";
+        String password = "123456";  // Contraseña válida
+
+        DtoLogin createLoginDTO = new DtoLogin(email, password);
+
+        assertDoesNotThrow(() -> {
+            TokenDTO tokenDTO = serviciosCuentaImp.iniciarSesion(createLoginDTO);
+            // Imprimir el token en la consola
+            System.out.println("Token generado: " + tokenDTO.token());
+        });
+    }
 
 }

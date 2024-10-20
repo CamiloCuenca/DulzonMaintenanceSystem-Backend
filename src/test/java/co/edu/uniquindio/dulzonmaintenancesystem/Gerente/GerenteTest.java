@@ -18,11 +18,11 @@ public class GerenteTest {
 
     @Test
     public void editCuentatest() {
-        String idCuenta = "6713e827bf032a4d88bffc6b";
+        String idCuenta = "67148ff7a61e465537510399";
         DtoEditarCuentaAdmi dtoEditarCuentaAdmi = new DtoEditarCuentaAdmi(
                 EstadoCuenta.ACTIVA,
-                Rol.OPERADOR,
-                "Carlos",
+                Rol.GERENTE,
+                "Camilo",
                 "Sanchez"
         );
         assertDoesNotThrow(() -> {
