@@ -3,6 +3,7 @@ package co.edu.uniquindio.dulzonmaintenancesystem.mantenimiento;
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.EstadoMantenimiento;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.ActividadDTO;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.MatenimientoDTO;
+import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.Observacion;
 import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosMantenimiento.RepositorioMantenimiento;
 import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosMaquina.RepositorioMaquina;
 import co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosInterfaces.ServiciosOperador;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 public class MantenimientoTest {
@@ -33,22 +35,22 @@ public class MantenimientoTest {
 
     @Test
     public void programarMantenimientoTest() throws Exception {
-
+        List<Observacion> observacionList = new ArrayList<>();
+        observacionList.add(new Observacion("se realizo algo"));
         // Crear un MatenimientoDTO con datos válidos
         MatenimientoDTO mantenimientoDTO = new MatenimientoDTO(
-                "671355d9fe902b4282101983",
-                "671352e74d164315888b0a51",
+                "6715952151929d013de17ed4",
+                "67159598d9af864cd752d677",
                 "Mantenimiento prueba1",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusHours(2),
                 null,
                 null,
-                new ArrayList<>(),
+                observacionList,
                 EstadoMantenimiento.EN_PAUSA,
-                new ArrayList<>(),
-                "6714b92f37fb95677ff28d97"
-        );
 
+                "67159574ec90532f82ef409c"
+        );
         // Programar el mantenimiento
         servicioOperador.programarMantenimiento(mantenimientoDTO);
     }

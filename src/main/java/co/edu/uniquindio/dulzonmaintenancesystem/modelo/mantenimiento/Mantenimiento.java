@@ -1,9 +1,7 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento;
 
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.EstadoMantenimiento;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,6 +11,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 @Document("Mantenimiento")
 public class Mantenimiento {
 

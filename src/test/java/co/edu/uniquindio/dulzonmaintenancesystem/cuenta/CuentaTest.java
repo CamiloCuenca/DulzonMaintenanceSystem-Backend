@@ -26,7 +26,7 @@ public class CuentaTest {
 
                 "brandon123@gmail.com.com",
                 "123",
-                Rol.OPERADOR,
+                Rol.SUPERVISOR,
                 EstadoCuenta.ACTIVA
                
 
