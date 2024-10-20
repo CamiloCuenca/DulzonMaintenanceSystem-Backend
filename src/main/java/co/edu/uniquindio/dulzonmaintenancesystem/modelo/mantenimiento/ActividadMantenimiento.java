@@ -1,8 +1,6 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -10,6 +8,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 public class ActividadMantenimiento {
 
     private String idActividadMantenimiento;

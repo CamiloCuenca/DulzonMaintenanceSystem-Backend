@@ -1,11 +1,17 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosImp;
 
+import co.edu.uniquindio.dulzonmaintenancesystem.dto.*;
+import co.edu.uniquindio.dulzonmaintenancesystem.modelo.EmpresaExterna.Cuadrilla;
+import co.edu.uniquindio.dulzonmaintenancesystem.modelo.EmpresaExterna.Trabajador;
+
 import co.edu.uniquindio.dulzonmaintenancesystem.Exception.Mantenimiento.MaquinaNoEspecificadaExepcion;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.ActividadDTO;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.MaquinaDTO;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.MatenimientoDTO;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.ActividadMantenimiento;
+import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.CartaGantt;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.Mantenimiento;
+import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosMantenimiento.RepositorioCartaGantt;
 import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosMantenimiento.RepositorioMantenimiento;
 import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosMaquina.RepositorioMaquina;
 import co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosInterfaces.ServiciosOperador;
@@ -14,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,11 +30,39 @@ public class ServicioOperadorImp implements ServiciosOperador {
 
     private final RepositorioMantenimiento repositorioMantenimiento;
     private final RepositorioMaquina repositorioMaquina;
+    private final RepositorioCartaGantt repositorioCartaGantt;
 
     @Override
-    public void registrarcartaGantt(String idCartaGantt) {
+    public String crearCartaGantt(DtoCrearCartaGantt cartaGantt) {
+        // Crear la nueva carta Gantt
+        CartaGantt nuevaCartaGantt = new CartaGantt();
+        nuevaCartaGantt.setNombreCartaGantt(cartaGantt.nombreCartaGantt());
+        nuevaCartaGantt.setFechaCreacion(LocalDateTime.now());
+
+        // Crear y asignar cuadrillas
+        List<Cuadrilla> cuadrillas = new ArrayList<>();
+        for (Cuadrilla cuadrillaDTO : cartaGantt.cuadrillas()) {
+            Cuadrilla cuadrilla = new Cuadrilla();
+            cuadrilla.setNombre(cuadrillaDTO.getNombre());
+
+            // Asignar trabajadores a la cuadrilla directamente desde el DTO
+            List<Trabajador> trabajadores = new ArrayList<>(cuadrillaDTO.getTrabajadores());
+            cuadrilla.setTrabajadores(trabajadores);
+
+            cuadrillas.add(cuadrilla);
+        }
+
+        nuevaCartaGantt.setCuadrillas(cuadrillas);
+
+        // Agregar actividades de mantenimiento
+        List<ActividadMantenimiento> actividades = new ArrayList<>(cartaGantt.actividadesPlanificadas());
+        nuevaCartaGantt.setActividadesPlanificadas(actividades);
+
+        CartaGantt crearCuentaGannt = repositorioCartaGantt.save(nuevaCartaGantt);
+        return crearCuentaGannt.getIdCartaGantt();
 
     }
+
 
     /**
      * Servicio para programar el mantenimiento de una maquina
