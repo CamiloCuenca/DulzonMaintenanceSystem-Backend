@@ -45,7 +45,8 @@ public class MantenimientoTest {
                 null,
                 new ArrayList<>(),
                 EstadoMantenimiento.EN_PAUSA,
-                new ArrayList<>()
+                new ArrayList<>(),
+                "6714b92f37fb95677ff28d97"
         );
 
         // Programar el mantenimiento
@@ -55,7 +56,7 @@ public class MantenimientoTest {
     @Test
     public void registrarActividadMantenimientoTest() {
 
-        String idMantenimienento= "67146a83c181de7c14270d76";
+        String idMantenimienento= "67152569b140dd5ed6b27987";
         // Crear un DTO de actividad
         ActividadDTO actividadDTO = new ActividadDTO(
 
@@ -88,18 +89,19 @@ public class MantenimientoTest {
 
     @Test
     public void iniciarActividadTest(){
-        String idMantenimiento="67146a83c181de7c14270d76";
-        String idActividad="b2a1a68a-d630-4558-a5cf-c0091b26b0fb";
+        String idCartaGantt="6714b92f37fb95677ff28d97";
+        String idActividad="6c1043fa-ab25-45da-9a72-b971fd8a5976";
 
-        serviciosSupervisor.iniciarActividad(idMantenimiento,idActividad);
+        serviciosSupervisor.iniciarActividad(idCartaGantt,idActividad);
     }
 
     @Test
     public void finalizarActividadTest(){
-        String idMantenimiento="67146a83c181de7c14270d76";
-        String idActividad="b2a1a68a-d630-4558-a5cf-c0091b26b0fb";
+        String idCartaGantt="6714b92f37fb95677ff28d97";
+        String idActividad="6c1043fa-ab25-45da-9a72-b971fd8a5976";
 
-        serviciosSupervisor.finalizarActividad(idMantenimiento,idActividad);
+
+        serviciosSupervisor.finalizarActividad(idCartaGantt,idActividad);
     }
 
 

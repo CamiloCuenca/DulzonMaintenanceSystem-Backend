@@ -11,13 +11,14 @@ public interface ServiciosSupervisor {
 
     void crearMaquina(MaquinaDTO maquinaDTO);
 
-    void iniciarActividad(String idMantenimiento, String idActividad);
+    void iniciarActividad(String idCartaGantt, String idActividad);
 
-    void finalizarActividad(String idMantenimiento, String idActividad);
+    void finalizarActividad(String idCartaGantt, String idActividad);
 
     void iniciarMantenimiento(String idMantenimiento);
 
     void finalizarMantenimiento(String idMantenimiento);
 
 }
+
 
