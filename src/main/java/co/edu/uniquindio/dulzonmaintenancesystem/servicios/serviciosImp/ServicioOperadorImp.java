@@ -1,5 +1,6 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosImp;
 
+import co.edu.uniquindio.dulzonmaintenancesystem.Exception.CartaGantt.CartaGanttNotFoundException;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.*;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.EmpresaExterna.Cuadrilla;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.EmpresaExterna.Trabajador;
@@ -61,6 +62,46 @@ public class ServicioOperadorImp implements ServiciosOperador {
         CartaGantt crearCuentaGannt = repositorioCartaGantt.save(nuevaCartaGantt);
         return crearCuentaGannt.getIdCartaGantt();
 
+    }
+
+    @Override
+    public String editarCartaGantt(String idCartaGantt, DtoCrearCartaGantt cartaGanttActualizada) throws CartaGanttNotFoundException {
+        // Buscar la carta Gantt por ID
+        Optional<CartaGantt> cartaGanttExistente = repositorioCartaGantt.findById(idCartaGantt);
+
+        if (cartaGanttExistente.isEmpty()) {
+            throw new CartaGanttNotFoundException("No se encontró la carta Gantt con el ID: " + idCartaGantt);
+        }
+
+        CartaGantt cartaGantt = cartaGanttExistente.get();
+
+        // Actualizar el nombre de la carta Gantt si es necesario
+        cartaGantt.setNombreCartaGantt(cartaGanttActualizada.nombreCartaGantt());
+
+        // Actualizar las cuadrillas
+        List<Cuadrilla> cuadrillasActualizadas = new ArrayList<>();
+        for (Cuadrilla cuadrillaDTO : cartaGanttActualizada.cuadrillas()) {
+            Cuadrilla cuadrilla = new Cuadrilla();
+            cuadrilla.setNombre(cuadrillaDTO.getNombre());
+
+            // Actualizar los trabajadores de la cuadrilla
+            List<Trabajador> trabajadoresActualizados = new ArrayList<>(cuadrillaDTO.getTrabajadores());
+            cuadrilla.setTrabajadores(trabajadoresActualizados);
+
+            cuadrillasActualizadas.add(cuadrilla);
+        }
+        cartaGantt.setCuadrillas(cuadrillasActualizadas);
+
+        // Actualizar las actividades planificadas
+        List<ActividadMantenimiento> actividadesActualizadas =
+                new ArrayList<>(cartaGanttActualizada.actividadesPlanificadas());
+        cartaGantt.setActividadesPlanificadas(actividadesActualizadas);
+
+        // Guardar la carta Gantt modificada
+        CartaGantt cartaGanttModificada = repositorioCartaGantt.save(cartaGantt);
+
+        // Devolver el ID de la carta Gantt modificada
+        return cartaGanttModificada.getIdCartaGantt();
     }
 
 
@@ -135,6 +176,19 @@ public class ServicioOperadorImp implements ServiciosOperador {
         repositorioMantenimiento.save(mantenimiento);
     }
 
+    @Override
+    public String eliminarCartaGantt(String idCartaGantt) {
+        Optional<CartaGantt> optionalCartaGantt = repositorioCartaGantt.findById(idCartaGantt);
+        if (optionalCartaGantt.isEmpty()) {
+            throw  new CartaGanttNotFoundException("No se encontró la carta Gantt con el ID: " + idCartaGantt);
+        }
+
+        CartaGantt cartaGantt = optionalCartaGantt.get();
+
+        repositorioCartaGantt.delete(cartaGantt);
+
+        return "La cartaGantt con id " + idCartaGantt + " fue eliminada correctamente.";
+    }
 
 
 }
