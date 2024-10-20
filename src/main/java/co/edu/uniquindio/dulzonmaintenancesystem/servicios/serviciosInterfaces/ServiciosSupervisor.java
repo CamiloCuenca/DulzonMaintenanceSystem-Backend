@@ -6,7 +6,18 @@ import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.Observacio
 import java.util.List;
 
 public interface ServiciosSupervisor {
-    void registrarMantenimiento( String idMantenimiento);
+
     List<Observacion> registrarObservacion();
+
     void crearMaquina(MaquinaDTO maquinaDTO);
+
+    void iniciarActividad(String idMantenimiento, String idActividad);
+
+    void finalizarActividad(String idMantenimiento, String idActividad);
+
+    void iniciarMantenimiento(String idMantenimiento);
+
+    void finalizarMantenimiento(String idMantenimiento);
+
 }
+

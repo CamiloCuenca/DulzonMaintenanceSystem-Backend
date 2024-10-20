@@ -11,11 +11,15 @@ public record MatenimientoDTO(
 
         String idMaquina,
         String idSupervisor,
+        String nombre,
         LocalDateTime fechaInicio,
         LocalDateTime fechaFin,
+        LocalDateTime fechaInicioReal, // puede ser null
+        LocalDateTime fechaFinReal,
         List<Observacion> observaciones,
         EstadoMantenimiento estadoMantenimiento,
         List<ActividadMantenimiento> actividadesPlanificadas
+
 
 
 ) {
