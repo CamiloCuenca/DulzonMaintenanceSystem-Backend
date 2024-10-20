@@ -28,6 +28,7 @@ public class Mantenimiento {
     private List<Observacion> observaciones;
     private EstadoMantenimiento estadoMantenimiento;
     private List<ActividadMantenimiento> actividadesPlanificadas;
+    private String idCuadrilla;
 
 
 }
