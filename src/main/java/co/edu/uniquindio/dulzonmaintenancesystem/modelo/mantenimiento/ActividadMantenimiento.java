@@ -18,4 +18,6 @@ public class ActividadMantenimiento {
     private String descripcion;
     private LocalDateTime fechaInicioPlanificada;
     private LocalDateTime fechaFinPlanificada;
+    private LocalDateTime fechaInicioReal; // puede ser null
+    private LocalDateTime fechaFinReal; // puede ser null
 }
