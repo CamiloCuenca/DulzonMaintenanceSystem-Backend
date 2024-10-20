@@ -29,5 +29,6 @@ public interface ServiciosOperador {
 
     List<ListaGanttDTO> ListarGanttDT();
 
+    public DtoCrearCartaGantt obtenerCartasGanttEspecifica(String idCartGannt);
 
 }

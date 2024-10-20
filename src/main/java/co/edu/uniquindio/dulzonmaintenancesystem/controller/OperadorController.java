@@ -37,13 +37,13 @@ public class OperadorController {
         return cartaGanttId;
     }
 
-    @GetMapping("/obtener-cartas-gantts")
-    public ResponseEntity<List<CartaGanttDTO>> obtenerCartasGantt() {
-        List<CartaGanttDTO> cartasGantt = serviciosOperador.obtenerCartasGantt();
-        return ResponseEntity.ok(cartasGantt); // Retorna la lista de DTOs con un estado HTTP 200 OK
+    @GetMapping("/obtener-carta-gantt/{idCartGannt}")
+    public DtoCrearCartaGantt obtenerCartasGanttEspecifica(@PathVariable String idCartGannt){
+        DtoCrearCartaGantt dtoCrearCartaGantt = serviciosOperador.obtenerCartasGanttEspecifica(idCartGannt);
+        return dtoCrearCartaGantt;
     }
 
-    @PutMapping("/editar-gantt")
+    @PutMapping("/editar-gantt/{idCartaGantt}")
     public String editarGantt (@PathVariable String idCartaGantt,@Valid @RequestBody DtoCrearCartaGantt cartaGanttActualizada) throws Exception {
         String cartaGanttId = serviciosOperador.editarCartaGantt(idCartaGantt,cartaGanttActualizada);
         return cartaGanttId;

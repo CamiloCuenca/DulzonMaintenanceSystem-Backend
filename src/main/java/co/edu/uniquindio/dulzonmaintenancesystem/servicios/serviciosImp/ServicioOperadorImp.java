@@ -205,6 +205,21 @@ public class ServicioOperadorImp implements ServiciosOperador {
     }
 
     @Override
+    public DtoCrearCartaGantt obtenerCartasGanttEspecifica(String idCartGannt) {
+        Optional<CartaGantt> cartasGantt = repositorioCartaGantt.findById(idCartGannt); // Obtener todas las cartas Gantt
+
+        CartaGantt cartaGantt = cartasGantt.get();
+        DtoCrearCartaGantt dto = new DtoCrearCartaGantt(
+                cartaGantt.getActividadesPlanificadas(),
+                cartaGantt.getCuadrillas(),
+                cartaGantt.getFechaCreacion(),
+                cartaGantt.getNombreCartaGantt()
+        );
+
+        return dto; // Retorna el dto.
+    }
+
+    @Override
     public List<ListaGanttDTO> ListarGanttDT() {
         List<CartaGantt> cartasGantt = repositorioCartaGantt.findAll(); // Obtener todas las cartas Gantt
         List<ListaGanttDTO> listaGanttDTO = new ArrayList<>();
