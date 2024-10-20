@@ -24,7 +24,7 @@ public class CuentaTest {
     public void crearCuenta() {
         DtoCrearCuenta nuevaCuentaDTO = new DtoCrearCuenta(
 
-                "camilocuenca18@gmail.com",
+                "brandon123@gmail.com.com",
                 "123",
                 Rol.OPERADOR,
                 EstadoCuenta.ACTIVA
