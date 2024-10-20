@@ -1,6 +1,6 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosImp;
 
-import co.edu.uniquindio.dulzonmaintenancesystem.Configuracion.JWTUtils;
+import co.edu.uniquindio.dulzonmaintenancesystem.configuracion.JWTUtils;
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.EstadoCuenta;
 import co.edu.uniquindio.dulzonmaintenancesystem.Exception.Cuenta.*;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.*;
