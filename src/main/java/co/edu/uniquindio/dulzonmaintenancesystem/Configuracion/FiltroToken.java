@@ -1,4 +1,4 @@
-package co.edu.uniquindio.dulzonmaintenancesystem.configuracion;
+package co.edu.uniquindio.dulzonmaintenancesystem.Configuracion;
 
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.Rol;
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.MessageDTO;
