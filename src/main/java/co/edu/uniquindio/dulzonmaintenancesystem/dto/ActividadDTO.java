@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 
 public record ActividadDTO(
 
-        String idActividadMantenimiento,
         String nombre,
         String IdOperador,
         String descripcion,
         LocalDateTime fechaInicioPlanificada,
-        LocalDateTime fechaFinPlanificada
+        LocalDateTime fechaFinPlanificada,
+        LocalDateTime fechaInicioReal, // puede ser null
+        LocalDateTime fechaFinReal // puede ser null
 ) { }
+
