@@ -11,10 +11,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class Observacion {
+    private String descripcion;
 
-    private String idObservacion;
-    private String texto;
-    private LocalDateTime fechaRegistro;
-    private TipoObservacion tipoObservacion;
-    private byte[] archivoAudio;
 }

@@ -1,13 +1,12 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.dto;
 
 import co.edu.uniquindio.dulzonmaintenancesystem.Enums.EstadoMantenimiento;
-import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.ActividadMantenimiento;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.Observacion;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record MatenimientoDTO(
+public record ListaMantenimientoDTO(
 
         String idMaquina,
         String idSupervisor,
@@ -16,12 +15,9 @@ public record MatenimientoDTO(
         LocalDateTime fechaFin,
         LocalDateTime fechaInicioReal, // puede ser null
         LocalDateTime fechaFinReal,
-        List<Observacion> observaciones,
         EstadoMantenimiento estadoMantenimiento,
         String idCartaGantt
 
 
-
 ) {
-
 }

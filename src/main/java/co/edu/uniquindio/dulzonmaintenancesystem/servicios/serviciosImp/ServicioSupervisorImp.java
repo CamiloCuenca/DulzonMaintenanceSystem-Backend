@@ -2,9 +2,11 @@ package co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosImp;
 
 import co.edu.uniquindio.dulzonmaintenancesystem.dto.MaquinaDTO;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.ActividadMantenimiento;
+import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.CartaGantt;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.Mantenimiento;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.mantenimiento.Observacion;
 import co.edu.uniquindio.dulzonmaintenancesystem.modelo.maquina.Maquina;
+import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosMantenimiento.RepositorioCartaGantt;
 import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosMantenimiento.RepositorioMantenimiento;
 import co.edu.uniquindio.dulzonmaintenancesystem.repositorio.RepositoriosMaquina.RepositorioMaquina;
 import co.edu.uniquindio.dulzonmaintenancesystem.servicios.serviciosInterfaces.ServiciosSupervisor;
@@ -20,6 +22,7 @@ import java.util.Optional;
 public class ServicioSupervisorImp implements ServiciosSupervisor {
     private final RepositorioMantenimiento repositorioMantenimiento;
     private final RepositorioMaquina repositorioMaquina;
+    private final RepositorioCartaGantt repositorioCartaGantt;
 
 
     @Override
@@ -46,44 +49,46 @@ public class ServicioSupervisorImp implements ServiciosSupervisor {
     /**
      * Servicio para iniciar una actividad (Modifica el atributo de fecha inicio real en la cual se inicio la actividad)
      *
-     * @param idMantenimiento
+     * @param idCartaGantt
      * @param idActividad
      */
     @Override
-    public void iniciarActividad(String idMantenimiento, String idActividad) {
-        Optional<Mantenimiento> mantenimientoOpt = repositorioMantenimiento.findById(idMantenimiento);
-        if (mantenimientoOpt.isEmpty()) {
-            throw new IllegalArgumentException("El mantenimiento especificado no existe.");
+    public void iniciarActividad(String idCartaGantt, String idActividad) {
+        Optional<CartaGantt> cartaGanttOpt = repositorioCartaGantt.findById(idCartaGantt);
+        if (cartaGanttOpt.isEmpty()) {
+            throw new IllegalArgumentException("La carta Gantt especificada no existe.");
         }
 
-        Mantenimiento mantenimiento = mantenimientoOpt.get();
-        ActividadMantenimiento actividad = buscarActividad(mantenimiento, idActividad);
+        CartaGantt cartaGantt = cartaGanttOpt.get();
+        ActividadMantenimiento actividad = buscarActividadEnCartaGantt(cartaGantt, idActividad);
 
         actividad.setFechaInicioReal(LocalDateTime.now());
 
-        repositorioMantenimiento.save(mantenimiento);
+        repositorioCartaGantt.save(cartaGantt);
     }
+
 
     /**
      * Servicio para finalizar una actividad (Modifica el atributo de fecha final real en la cual se inicio la actividad)
      *
-     * @param idMantenimiento
+     * @param idCartaGantt
      * @param idActividad
      */
     @Override
-    public void finalizarActividad(String idMantenimiento, String idActividad) {
-        Optional<Mantenimiento> mantenimientoOpt = repositorioMantenimiento.findById(idMantenimiento);
-        if (mantenimientoOpt.isEmpty()) {
-            throw new IllegalArgumentException("El mantenimiento especificado no existe.");
+    public void finalizarActividad(String idCartaGantt, String idActividad) {
+        Optional<CartaGantt> cartaGanttOpt = repositorioCartaGantt.findById(idCartaGantt);
+        if (cartaGanttOpt.isEmpty()) {
+            throw new IllegalArgumentException("La carta Gantt especificada no existe.");
         }
 
-        Mantenimiento mantenimiento = mantenimientoOpt.get();
-        ActividadMantenimiento actividad = buscarActividad(mantenimiento, idActividad);
+        CartaGantt cartaGantt = cartaGanttOpt.get();
+        ActividadMantenimiento actividad = buscarActividadEnCartaGantt(cartaGantt, idActividad);
 
         actividad.setFechaFinReal(LocalDateTime.now());
 
-        repositorioMantenimiento.save(mantenimiento);
+        repositorioCartaGantt.save(cartaGantt);
     }
+
 
 
     /**
@@ -123,15 +128,14 @@ public class ServicioSupervisorImp implements ServiciosSupervisor {
 
     /**
      * Metodo auxiliar para buscar una actividad dentro de un mantenimiento.
-     * @param mantenimiento
      * @param idActividad
      * @return
      */
-    private ActividadMantenimiento buscarActividad(Mantenimiento mantenimiento, String idActividad) {
-        return mantenimiento.getActividadesPlanificadas().stream()
+    private ActividadMantenimiento buscarActividadEnCartaGantt(CartaGantt cartaGantt, String idActividad) {
+        return cartaGantt.getActividadesPlanificadas().stream()
                 .filter(actividad -> actividad.getIdActividadMantenimiento().equals(idActividad))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("La actividad especificada no existe."));
+                .orElseThrow(() -> new IllegalArgumentException("La actividad especificada no existe en la carta Gantt."));
     }
 
 }

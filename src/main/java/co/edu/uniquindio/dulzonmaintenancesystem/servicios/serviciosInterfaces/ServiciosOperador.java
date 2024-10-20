@@ -23,7 +23,11 @@ public interface ServiciosOperador {
 
     String eliminarCartaGantt(String idCartaGantt)throws  Exception;
 
+    List<CartaGanttDTO> obtenerCartasGantt();
 
+    List<ListaMantenimientoDTO> listarMantenimientos();
+
+    List<ListaGanttDTO> ListarGanttDT();
 
 
 }
