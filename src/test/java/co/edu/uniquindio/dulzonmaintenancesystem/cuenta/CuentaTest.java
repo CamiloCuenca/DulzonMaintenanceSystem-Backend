@@ -25,14 +25,14 @@ public class CuentaTest {
     @Test
     public void crearCuenta() {
         DtoCrearCuenta nuevaCuentaDTO = new DtoCrearCuenta(
-                "camiloAas@gmail.com",
-                "123456",
-                Rol.GERENTE,
-                EstadoCuenta.INACTIVA
+                "camilocuenca18@gmail.com",
+                "123",
+                Rol.OPERADOR,
+                EstadoCuenta.ACTIVA
                
         );
         DtoCrearPersona nuevaPersonaDTO = new DtoCrearPersona(
-                "10012774330",
+                "10012774338",
                 "Camio",
                 "Sepulveda",
                 "3153032",
