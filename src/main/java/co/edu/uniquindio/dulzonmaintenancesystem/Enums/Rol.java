@@ -1,5 +1,5 @@
 package co.edu.uniquindio.dulzonmaintenancesystem.Enums;
 
-public enum Retraso {
-    SI, NO
+public enum Rol {
+    OPERADOR, GERENTE, SUPERVISOR
 }
